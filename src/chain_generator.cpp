@@ -55,47 +55,6 @@ void buildMarkovModel(string tokens[], int size, int order, string prefixes[],
     }
 }
 
-string generateText(string prefixes[], string suffixes[], int modelSize,
-    int order, int length) {
-    srand(time(NULL)); // seed random
-    int index = rand() % modelSize;
-    string currentPrefix = prefixes[index];
-    string currentSuffixes = "";
-    string text = currentPrefix;
-    while (length) {
-        int index = rand() % modelSize;
-        currentSuffixes = suffixes[index];
-        int whiteSpaceCounter = 1;
-        for (char c : currentSuffixes) {
-            if (c == ' ') {
-                whiteSpaceCounter++;
-            }
-        }
-
-        string currentSuffix = currentSuffixes;
-        if (whiteSpaceCounter >= 2) {
-            int random_value = rand() % whiteSpaceCounter;
-            stringstream suffixStream(currentSuffixes);
-            int flag = 0;
-            while (suffixStream.eof()) {
-                getline(suffixStream, currentSuffix, ' ');
-                if (flag == random_value) {
-                    break;
-                }
-                flag++;
-            }
-        }
-        text += currentSuffix;
-        text += ' ';
-        currentPrefix = currentPrefix.substr(currentPrefix.find(' ') + 1);
-        currentPrefix += currentSuffix;
-        currentPrefix += " ";
-        length--;
-    }
-
-    return text;
-}
-
 int main() {
     // Load text corpus
     ifstream file("dialogues.txt");
