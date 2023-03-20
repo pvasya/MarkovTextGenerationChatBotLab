@@ -74,7 +74,7 @@ int main() {
     string* prefixes = new string[MAX_PREFIXES];
     string* suffixes = new string[MAX_PREFIXES];
     int modelSize = 0;
-    int order = 2;
+    int order = 1;
     buildMarkovModel(tokens, count, order, prefixes, suffixes, modelSize);
     ofstream out("dialogues_chain.txt");
     for(int i = 0;i<modelSize;i++){
